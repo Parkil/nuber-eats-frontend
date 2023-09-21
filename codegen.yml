@@ -1,0 +1,9 @@
+# npm install -D @graphql-codegen/typescript-operations @graphql-codegen/typescript
+overwrite: true
+schema: http://localhost:4000/graphql
+documents: "./src/**/*.tsx"
+generates:
+  ./__graphql_type/type.d.ts:
+    plugins:
+      - typescript
+      - typescript-operations
