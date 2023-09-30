@@ -5,7 +5,3 @@
 .input {
   @apply focus:outline-none focus:border-gray-500 p-3 border-2 border-gray-200 text-lg font-light transition-colors
 }
-
-.btn {
-  @apply bg-green-600 text-white py-4 hover:bg-green-700 transition-colors text-lg font-medium
-}
