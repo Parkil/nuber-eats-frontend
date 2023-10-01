@@ -28,11 +28,11 @@ interface IForm {
 }
 
 export const CreateAccount = () => {
-  document.title = 'Nuber - create account';
+  document.title = 'Create Account | Nuber';
 
   const history = useHistory();
   const onCompleted = (data: ExecCreateAccountMutation) => {
-    const {createAccount: {error, ok}} = data;
+    const {createAccount: {ok}} = data;
 
     if (ok) {
       alert('Account Created! Log in now!');
