@@ -33,9 +33,9 @@ export const CreateAccount = () => {
   const history = useHistory();
   const onCompleted = (data: ExecCreateAccountMutation) => {
     const {createAccount: {error, ok}} = data;
-    console.log(error, ok);
 
     if (ok) {
+      alert('Account Created! Log in now!');
       history.push("/login");
     }
   }
@@ -68,7 +68,6 @@ export const CreateAccount = () => {
 
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
-      {/*todo react-helmet 이 typescript 5에서 동작하지 않음 대체재를 찾아야 함*/}
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
         <img src={nuberLogo} alt="nuber eats logo" className="w-52 mb-5"/>
         <h4 className="w-full font-medium text-left text-3xl mb-10">Let`s get started</h4>
