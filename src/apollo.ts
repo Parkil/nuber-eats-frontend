@@ -1,5 +1,6 @@
-import {ApolloClient, InMemoryCache, makeVar} from '@apollo/client';
+import {ApolloClient, createHttpLink, InMemoryCache, makeVar} from '@apollo/client';
 import {LOCAL_STORAGE_TOKEN} from "./constant/constant";
+import {setContext} from "@apollo/client/link/context";
 
 const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
 
@@ -8,11 +9,22 @@ const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
 export const isLoggedInVar = makeVar(Boolean(token));
 export const tokenVar = makeVar(token);
 
-console.log(isLoggedInVar());
-console.log(tokenVar());
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000/graphql', // nuber-eats-backend의 url을 사용
+});
+
+const authLink = setContext((_, {headers}) => {
+  return {
+    headers: {
+      ...headers,
+      'x-jwt': tokenVar() ?? '',
+    }
+  }
+});
 
 export const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql', // nuber-eats-backend의 url을 사용
+  link: authLink.concat(httpLink),
+  uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache({
     typePolicies: { // local only field 설정 (graphql 과 상관없이 브라우저에서만 사용되는 field - 자체로는 변경이 불가능)
       Query: {
