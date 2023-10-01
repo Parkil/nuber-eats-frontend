@@ -1,9 +1,13 @@
 # npm install -D @graphql-codegen/typescript-operations @graphql-codegen/typescript
+# 이제 보니 파일 이름 자체에도 제약이 있는듯 하다 처음에는 ./src/__graphql_type/type.d.ts 로 설정을 했는데 enum이 export
+# 되어 있음에도 cannot resolve moulde 에러가 떠서 확인해보니 export type 은 정상적으로 가져오는데 export enum만 가져오지 못하여
+# 확인하다가 type.d.ts -> type.ts 로 변경하니 enum을 가져오는것을 확인하였음
+# 노마드 코더에서는 이에 대한 언급이 없는것으로 보아 typescript 5 신규 규약인것으로 보임
 overwrite: true
 schema: http://localhost:4000/graphql
 documents: "./src/**/*.tsx"
 generates:
-  ./__graphql_type/type.d.ts:
+  ./src/__graphql_type/type.ts:
     plugins:
       - typescript
       - typescript-operations
