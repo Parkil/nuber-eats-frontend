@@ -9,7 +9,6 @@ import {ExecLoginMutation, ExecLoginMutationVariables} from "../__graphql_type/t
 import {EMAIL_REGEX} from "../constant/constant";
 import {isLoggedInVar} from "../apollo";
 
-
 /*
   mutation loginMutation($email:String!, $password:String!) -> FrontEnd 에서만 필요한 부분
  */
@@ -43,6 +42,8 @@ interface IForm {
     package.json generate 참조
  */
 export const Login = () => {
+
+  document.title = 'Nuber - login';
 
   const onCompleted = (data: ExecLoginMutation) => {
     const {login: {error, ok, token}} = data;
