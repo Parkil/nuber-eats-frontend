@@ -6,8 +6,8 @@ import nuberLogo from '../images/logo.svg';
 import {Button} from "../components/button";
 import {Link} from "react-router-dom";
 import {ExecLoginMutation, ExecLoginMutationVariables} from "../__graphql_type/type";
-import {EMAIL_REGEX} from "../constant/constant";
-import {isLoggedInVar} from "../apollo";
+import {EMAIL_REGEX, LOCAL_STORAGE_TOKEN} from "../constant/constant";
+import {isLoggedInVar, tokenVar} from "../apollo";
 
 /*
   mutation loginMutation($email:String!, $password:String!) -> FrontEnd 에서만 필요한 부분
@@ -43,14 +43,14 @@ interface IForm {
  */
 export const Login = () => {
 
-  document.title = 'Nuber - login';
+  document.title = 'Login | Nuber';
 
   const onCompleted = (data: ExecLoginMutation) => {
-    const {login: {error, ok, token}} = data;
-    console.log(error, ok, token);
+    const {login: { ok, token}} = data;
 
-    if (ok) {
-      console.log(token);
+    if (ok && token) {
+      localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
+      tokenVar(token);
       isLoggedInVar(true);
     }
   }
