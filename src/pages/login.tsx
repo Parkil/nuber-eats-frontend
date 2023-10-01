@@ -2,8 +2,10 @@ import React from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {FormError} from "../components/form-error";
 import {ApolloError, gql, useMutation} from "@apollo/client";
-import {ExecLoginMutation, ExecLoginMutationVariables} from "../../__graphql_type/type";
 import nuberLogo from '../images/logo.svg';
+import {Button} from "../components/button";
+import {Link} from "react-router-dom";
+import {ExecLoginMutation, ExecLoginMutationVariables} from "../__graphql_type/type";
 
 
 /*
@@ -58,11 +60,11 @@ export const Login = () => {
     onError
   });
 
-  const {register, handleSubmit, formState: {errors}} = useForm<IForm>();
-  const onSubmit: SubmitHandler<any> = (data) => {
+  const {register, handleSubmit, formState: {errors, isValid}} = useForm<IForm>();
+  const onSubmit: SubmitHandler<any> = async (data) => {
     if (!loading) {
       const {email, password} = data;
-      execLogin({
+      await execLogin({
         variables: {
           loginInput: {
             email, password
@@ -72,12 +74,12 @@ export const Login = () => {
     }
   }
 
-  return(
+  return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
         <img src={nuberLogo} alt="nuber eats logo" className="w-52 mb-5"/>
         <h4 className="w-full font-medium text-left text-3xl mb-10">Welcome Back</h4>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3 mt-5 w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3 mt-5 w-full mb-5">
           <input {...register("email", {required: 'Email is required'})} type='email' placeholder="Email"
                  className="input mb-3"/>
           {errors.email?.message && <FormError errorMsg={errors.email.message}/>}
@@ -89,11 +91,12 @@ export const Login = () => {
           {errors.password?.type === "minLength" &&
             <FormError errorMsg={"password must be more than large 4 character"}/>}
 
-          <button className="btn mt-3">
-            {loading ? "Loading..." : "Login"}
-          </button>
+          <Button canClick={isValid} loading={loading} actionText={'Login'}/>
           {data?.login.error && <FormError errorMsg={data.login.error}/>}
         </form>
+        <div>
+          New to Nuber? <Link to='/create-account' className="text-lime-600 hover:underline">Create an Account</Link>
+        </div>
       </div>
     </div>
   );
