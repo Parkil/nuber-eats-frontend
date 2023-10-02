@@ -2,15 +2,12 @@ import React from "react";
 
 import {ApolloError, gql, useMutation} from "@apollo/client";
 import {SubmitHandler, useForm} from "react-hook-form";
-import nuberLogo from "../images/logo.svg";
 import {FormError} from "../components/form-error";
 import {Button} from "../components/button";
 import {Link, useHistory} from "react-router-dom";
-import {
-  ExecCreateAccountMutation,
-  ExecCreateAccountMutationVariables, UserRole
-} from "../__graphql_type/type";
+import {ExecCreateAccountMutation, ExecCreateAccountMutationVariables, UserRole} from "../__graphql_type/type";
 import {EMAIL_REGEX} from "../constant/constant";
+import {NuberLogo} from "../components/nuber-logo";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation execCreateAccount($createAccountInput: CreateAccountInput!) {
@@ -69,7 +66,7 @@ export const CreateAccount = () => {
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-        <img src={nuberLogo} alt="nuber eats logo" className="w-52 mb-5"/>
+        <NuberLogo/>
         <h4 className="w-full font-medium text-left text-3xl mb-10">Let`s get started</h4>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3 mt-5 w-full mb-5">
           <input {...register("email", {required: 'Email is required', pattern: EMAIL_REGEX})} type='email' placeholder="Email"

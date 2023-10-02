@@ -2,12 +2,12 @@ import React from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {FormError} from "../components/form-error";
 import {ApolloError, gql, useMutation} from "@apollo/client";
-import nuberLogo from '../images/logo.svg';
 import {Button} from "../components/button";
 import {Link} from "react-router-dom";
 import {ExecLoginMutation, ExecLoginMutationVariables} from "../__graphql_type/type";
 import {EMAIL_REGEX, LOCAL_STORAGE_TOKEN} from "../constant/constant";
 import {isLoggedInVar, tokenVar} from "../apollo";
+import {NuberLogo} from "../components/nuber-logo";
 
 /*
   mutation loginMutation($email:String!, $password:String!) -> FrontEnd 에서만 필요한 부분
@@ -81,7 +81,7 @@ export const Login = () => {
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
       <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-        <img src={nuberLogo} alt="nuber eats logo" className="w-52 mb-5"/>
+        <NuberLogo/>
         <h4 className="w-full font-medium text-left text-3xl mb-10">Welcome Back</h4>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3 mt-5 w-full mb-5">
           <input {...register("email", {required: 'Email is required', pattern: EMAIL_REGEX})} type='email' placeholder="Email"
