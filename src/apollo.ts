@@ -13,6 +13,7 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql', // nuber-eats-backend의 url을 사용
 });
 
+// graphql 실행시 jwt token 을 실어서 보내도록 설정 
 const authLink = setContext((_, {headers}) => {
   return {
     headers: {
