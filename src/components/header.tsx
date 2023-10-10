@@ -14,17 +14,25 @@ import {Link} from "react-router-dom";
  */
 
 export const Header:React.FC = () => {
+  console.log('Header called');
   const {data} = useMe();
   return (
-    <header className="py-4">
-      <div className="container px-5 xl:px-0 flex justify-between items-center">
-        <NuberLogo classStr="w-40"/>
-        <span className="text-xs">
-          <Link to="/users/my-profile">
-            <FontAwesomeIcon icon={faUser} className="text-xl"/>{data?.me.email}
-          </Link>
-        </span>
-      </div>
-    </header>
+    <>
+      {!data?.me.emailVerified && (
+        <div className="bg-red-500 py-3 px-3 text-center text-xs text-white">
+          <span>Please verify your email</span>
+        </div>
+      )}
+      <header className="py-4">
+        <div className="container px-5 xl:px-0 flex justify-between items-center">
+          <NuberLogo classStr="w-40"/>
+          <span className="text-xs">
+            <Link to="/users/my-profile">
+              <FontAwesomeIcon icon={faUser} className="text-xl"/>{data?.me.email}
+            </Link>
+          </span>
+        </div>
+      </header>
+    </>
   );
 }

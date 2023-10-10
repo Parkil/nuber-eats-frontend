@@ -3,10 +3,14 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import {Restaurants} from "../pages/client/restaurants";
 import {Header} from "../components/header";
 import {useMe} from "../hooks/useMe";
+import {ConfirmEmail} from "../pages/user/confirm-email";
 
 const ClientRoutes = [
   <Route key="main" path="/" exact>
     <Restaurants/>
+  </Route>,
+  <Route key="confirm" path="/confirm" exact>
+    <ConfirmEmail/>
   </Route>,
 ]
 
