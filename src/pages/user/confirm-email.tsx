@@ -32,7 +32,6 @@ react 에서는 로직이 실행하는 중간에
 다른 url로 이동하는 행동은 무조건 최종 행동이 끝난 다음에 해야 할듯
  */
 
-// todo history.push 로 처리하는 부분을 조건 rendering으로 변경필요
 export const ConfirmEmail = () => {
   console.log('ConfirmEmail');
   const client = useApolloClient();
@@ -40,6 +39,7 @@ export const ConfirmEmail = () => {
   const { data: userData } = useMe();
 
   if (userData?.me.emailVerified) {
+    // todo html rendering 으로 변경
     history.push("/");
   }
 
@@ -47,6 +47,7 @@ export const ConfirmEmail = () => {
 
   const onError = () => {
     console.log('email verification failed moving main page onError');
+    // todo html rendering 으로 변경
     history.push("/");
   }
 

@@ -14,7 +14,6 @@ import {Link} from "react-router-dom";
  */
 
 export const Header:React.FC = () => {
-  console.log('Header called');
   const {data} = useMe();
   return (
     <>
@@ -24,10 +23,10 @@ export const Header:React.FC = () => {
         </div>
       )}
       <header className="py-4">
-        <div className="container px-5 xl:px-0 flex justify-between items-center">
+        <div className="container px-5 xl:px-0 max-w-screen-2xl flex justify-between items-center">
           <NuberLogo classStr="w-40"/>
           <span className="text-xs">
-            <Link to="/users/my-profile">
+            <Link to="/edit-profile">
               <FontAwesomeIcon icon={faUser} className="text-xl"/>{data?.me.email}
             </Link>
           </span>

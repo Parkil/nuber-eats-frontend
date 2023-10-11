@@ -9,3 +9,7 @@
 .container {
   @apply w-full max-w-screen-xl mx-auto
 }
+
+.form {
+  @apply grid gap-3 mt-5 w-full mb-5
+}
