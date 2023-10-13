@@ -32,6 +32,8 @@ redirect 를 수행할때에는 rendering 에서 수행하는것이 맞을듯
 */
 
 export const ConfirmEmail = () => {
+  document.title = 'ConfirmEmail | Nuber';
+
   const client = useApolloClient();
   const history = useHistory();
   const { data: userData } = useMe(); // refetch 를 선언할수 있는데 refecth()를 호출하면 해당 graphql 을 다시 호출한다
