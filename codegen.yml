@@ -5,7 +5,7 @@
 # 노마드 코더에서는 이에 대한 언급이 없는것으로 보아 typescript 5 신규 규약인것으로 보임
 overwrite: true
 schema: http://localhost:4000/graphql
-documents: "./src/**/*.tsx"
+documents: "./src/**/*.{tsx,ts}"
 generates:
   ./src/__graphql_type/type.ts:
     plugins:

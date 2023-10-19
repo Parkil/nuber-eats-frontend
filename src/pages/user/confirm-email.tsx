@@ -2,8 +2,8 @@ import React from "react";
 import {gql, useApolloClient, useMutation} from "@apollo/client";
 import {ExecVerifyEmailMutation, ExecVerifyEmailMutationVariables} from "../../__graphql_type/type";
 import {useMe} from "../../hooks/useMe";
-import {useHistory} from "react-router-dom";
-import {getVerificationCode} from "../../util/getVerificationCode";
+import {getCode} from "../../util/getParam";
+import {HistoryReplace} from "../../components/history.replace";
 
 const VERIFY_EMAIL_MUTATION = gql`
   mutation execVerifyEmail($verifyEmailInput: VerifyEmailInput!) {
@@ -29,13 +29,16 @@ react component 에서 state에 분기를 태우는 행위는 없어야 한다 s
  - 중간에 분기를 태울수는 있으나 최종적으로는 1개의 state 만 나와야 한다
  - 예를 들어 특정조건에서는 a state, 다른 조건에서는 b state 가 나와서는 안된다
 redirect 를 수행할때에는 rendering 에서 수행하는것이 맞을듯
+
+[2023-10-18 추가]
+return history.push() or return history.replace() 를 하면 아래 로직을 수행안하고 바로 이동한다
+그리고 history.push() / history.replace로 인한 graphql 문제는 useLazyQuery 를 쓰면 해결된다
 */
 
 export const ConfirmEmail = () => {
   document.title = 'ConfirmEmail | Nuber';
 
   const client = useApolloClient();
-  const history = useHistory();
   const { data: userData } = useMe(); // refetch 를 선언할수 있는데 refecth()를 호출하면 해당 graphql 을 다시 호출한다
 
   const onCompleted = (data: ExecVerifyEmailMutation) => {
@@ -61,7 +64,7 @@ export const ConfirmEmail = () => {
     verifyEmail({
       variables: {
         verifyEmailInput: {
-          code: getVerificationCode()
+          code: getCode()
         }
       }
     }).then();
@@ -69,7 +72,7 @@ export const ConfirmEmail = () => {
 
   return (
     <>
-      {userData?.me.emailVerified && history.push("/")}
+      <HistoryReplace condition={userData?.me.emailVerified} url={'/'}/>
       {!userData?.me.emailVerified &&
         <div className="mt-52 flex flex-col items-center justify-center">
           <h2 className="text-lg mb-2 font-medium">Confirming email...</h2>
