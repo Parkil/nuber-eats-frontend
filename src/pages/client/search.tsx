@@ -1,7 +1,7 @@
 import React from "react";
 import {getSearchTerm} from "../../util/getParam";
 import {HistoryReplace} from "../../components/history.replace";
-import {RestaurantList} from "../../components/restaurant.list";
+import {RestaurantQueryList} from "../../components/restaurant/restaurant.query.list";
 
 export const Search = () => {
   document.title = 'Search | Nuber';
@@ -11,7 +11,7 @@ export const Search = () => {
     <>
       <HistoryReplace condition={!searchTerm} url={'/'}/>
       <h1>Search Page</h1>
-      <RestaurantList isSkip={!searchTerm} query={searchTerm}/>
+      <RestaurantQueryList isSkip={!searchTerm} query={searchTerm}/>
     </>
   );
 }

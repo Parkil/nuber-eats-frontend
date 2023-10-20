@@ -1,6 +1,6 @@
 import {gql, useQuery} from "@apollo/client";
 import {RestaurantsPageQuery, RestaurantsPageQueryVariables} from "../__graphql_type/type";
-import {RESTAURANT_FRAGMENT} from "../fragments";
+import {RESTAURANT_FRAGMENT} from "../constant/fragments";
 
 const RESTAURANTS_QUERY = gql`
   query restaurantsPage($restaurantsInput: RestaurantsInput!) {

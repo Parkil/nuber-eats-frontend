@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {RestaurantCategory} from "../../components/restaurant-category";
-import {RestaurantList} from "../../components/restaurant.list";
+import {RestaurantCategory} from "../../components/restaurant/restaurant-category";
+import {RestaurantQueryList} from "../../components/restaurant/restaurant.query.list";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 
@@ -40,7 +40,7 @@ export const Restaurants = () => {
                placeholder="Search Restaurants..."/>
       </form>
       <RestaurantCategory/>
-      <RestaurantList isSkip={false} query={queryStr}/>
+      <RestaurantQueryList isSkip={false} query={queryStr}/>
     </div>
   );
 }

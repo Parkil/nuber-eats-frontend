@@ -1,6 +1,8 @@
 import React from "react";
 import {gql, useQuery} from "@apollo/client";
-import {CategoryQuery, CategoryQueryVariables} from "../__graphql_type/type";
+import {CategoryQuery, CategoryQueryVariables} from "../../__graphql_type/type";
+import {Link} from "react-router-dom";
+import {CATEGORY_FRAGMENT} from "../../constant/fragments";
 
 export const RestaurantCategory: React.FC = () => {
 
@@ -10,14 +12,11 @@ export const RestaurantCategory: React.FC = () => {
         ok
         error
         categories {
-          id
-          name
-          coverImg
-          slug
-          restaurantCount
+          ...CategoryParts
         }
       }
     }
+    ${CATEGORY_FRAGMENT}
   `;
 
   const { data, loading } = useQuery<CategoryQuery, CategoryQueryVariables>(CATEGORY_QUERY);
@@ -29,10 +28,12 @@ export const RestaurantCategory: React.FC = () => {
           <div className="flex justify-around max-w-xs mx-auto">
             {data?.allCategories.categories?.map(category =>
               // group -> group:hover 를 사용하면 해당 group 에 해당하는 element 가 hover 되었을때 동일한 처리를 할수 있도록 할수 있음
-              <div key={category.name} className="flex flex-col items-center cursor-pointer group">
-                <div className="w-16 h-16 bg-cover group-hover:bg-gray-100 rounded-full" style={{backgroundImage: `url(${category.coverImg})`}}></div>
-                <span className="text-sm text-center font-bold mt-1">{category.name}</span>
-              </div>
+              <Link to={`/category/${category.slug}`} key={category.name}>
+                <div className="flex flex-col items-center cursor-pointer group">
+                  <div className="w-16 h-16 bg-cover group-hover:bg-gray-100 rounded-full" style={{backgroundImage: `url(${category.coverImg})`}}></div>
+                  <span className="text-sm text-center font-bold mt-1">{category.name}</span>
+                </div>
+              </Link>
             )}
           </div>
         </div>

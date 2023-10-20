@@ -1,13 +1,13 @@
 import React from "react";
 
-interface IRestaurantListRowProps {
+interface IRestaurantElProps {
   id: number;
   coverImg: string;
   name: string;
   categoryName: string;
 }
 
-export const RestaurantListRow: React.FC<IRestaurantListRowProps> = ({id, coverImg, name, categoryName}) => {
+export const RestaurantElement: React.FC<IRestaurantElProps> = ({id, coverImg, name, categoryName}) => {
   return (
     <div className="flex flex-col">
       <div style={{backgroundImage: `url(${coverImg})`}} className="bg-cover bg-center mb-3 py-28"></div>
