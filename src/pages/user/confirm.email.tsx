@@ -1,8 +1,8 @@
 import React from "react";
 import {gql, useApolloClient, useMutation} from "@apollo/client";
 import {ExecVerifyEmailMutation, ExecVerifyEmailMutationVariables} from "../../__graphql_type/type";
-import {useMe} from "../../hooks/useMe";
-import {getCode} from "../../util/getParam";
+import {useMe} from "../../hooks/use.me";
+import {getCode} from "../../util/get.param";
 import {HistoryReplace} from "../../components/history.replace";
 
 const VERIFY_EMAIL_MUTATION = gql`

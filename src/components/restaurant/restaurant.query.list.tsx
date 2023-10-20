@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {RestaurantElement} from "./restaurant.element";
-import {useRestaurants} from "../../hooks/useRestaurants";
+import {useRestaurants} from "../../hooks/use.restaurants";
 import {Pagination} from "./pagination";
 
 interface IRestaurantListProps {

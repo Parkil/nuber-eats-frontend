@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {RestaurantCategory} from "../../components/restaurant/restaurant-category";
+import {RestaurantCategoryArea} from "../../components/restaurant/restaurant.category.area";
 import {RestaurantQueryList} from "../../components/restaurant/restaurant.query.list";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
@@ -39,7 +39,7 @@ export const Restaurants = () => {
         <input {...register("searchWord", {required:false, minLength:1})} type="Search" className="input rounded-md border-0 w-3/4 md:w-3/12"
                placeholder="Search Restaurants..."/>
       </form>
-      <RestaurantCategory/>
+      <RestaurantCategoryArea/>
       <RestaurantQueryList isSkip={false} query={queryStr}/>
     </div>
   );

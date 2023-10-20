@@ -1,5 +1,5 @@
 import React from "react";
-import {getSearchTerm} from "../../util/getParam";
+import {getSearchTerm} from "../../util/get.param";
 import {HistoryReplace} from "../../components/history.replace";
 import {RestaurantQueryList} from "../../components/restaurant/restaurant.query.list";
 

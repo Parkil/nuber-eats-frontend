@@ -1,11 +1,11 @@
 import React from "react";
-import {useMe} from "../../hooks/useMe";
+import {useMe} from "../../hooks/use.me";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Button} from "../../components/button";
 import {ApolloError, gql, useApolloClient, useMutation} from "@apollo/client";
 import {ExecEditProfileMutation, ExecEditProfileMutationVariables} from "../../__graphql_type/type";
 import {EMAIL_REGEX} from "../../constant/constant";
-import {FormError} from "../../components/form-error";
+import {FormError} from "../../components/form.error";
 
 interface IForm {
   email?: string;

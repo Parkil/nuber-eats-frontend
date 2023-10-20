@@ -1,13 +1,13 @@
 import React from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {FormError} from "../components/form-error";
+import {FormError} from "../components/form.error";
 import {ApolloError, gql, useMutation} from "@apollo/client";
 import {Button} from "../components/button";
 import {Link} from "react-router-dom";
 import {ExecLoginMutation, ExecLoginMutationVariables} from "../__graphql_type/type";
 import {EMAIL_REGEX, LOCAL_STORAGE_TOKEN} from "../constant/constant";
 import {isLoggedInVar, tokenVar} from "../apollo";
-import {NuberLogo} from "../components/nuber-logo";
+import {NuberLogo} from "../components/nuber.logo";
 
 /*
   mutation loginMutation($email:String!, $password:String!) -> FrontEnd 에서만 필요한 부분

@@ -2,9 +2,9 @@ import React from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {Restaurants} from "../pages/client/restaurants";
 import {Header} from "../components/header";
-import {useMe} from "../hooks/useMe";
-import {ConfirmEmail} from "../pages/user/confirm-email";
-import {EditProfile} from "../pages/user/edit-profile";
+import {useMe} from "../hooks/use.me";
+import {ConfirmEmail} from "../pages/user/confirm.email";
+import {EditProfile} from "../pages/user/edit.profile";
 import {Search} from "../pages/client/search";
 import {Category} from "../pages/client/category";
 

@@ -2,12 +2,12 @@ import React from "react";
 
 import {ApolloError, gql, useMutation} from "@apollo/client";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {FormError} from "../components/form-error";
+import {FormError} from "../components/form.error";
 import {Button} from "../components/button";
 import {Link, useHistory} from "react-router-dom";
 import {ExecCreateAccountMutation, ExecCreateAccountMutationVariables, UserRole} from "../__graphql_type/type";
 import {EMAIL_REGEX} from "../constant/constant";
-import {NuberLogo} from "../components/nuber-logo";
+import {NuberLogo} from "../components/nuber.logo";
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation execCreateAccount($createAccountInput: CreateAccountInput!) {

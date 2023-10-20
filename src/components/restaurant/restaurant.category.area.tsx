@@ -4,7 +4,7 @@ import {CategoryQuery, CategoryQueryVariables} from "../../__graphql_type/type";
 import {Link} from "react-router-dom";
 import {CATEGORY_FRAGMENT} from "../../constant/fragments";
 
-export const RestaurantCategory: React.FC = () => {
+export const RestaurantCategoryArea: React.FC = () => {
 
   const CATEGORY_QUERY = gql`
     query category {
