@@ -50,6 +50,10 @@ export const RestaurantCategoryList: React.FC<IRestaurantListProps> = ({slug}) =
 
   return (
     <>
+      <div className="flex flex-col items-center">
+        <div style={{backgroundImage: `url(${data?.category.category?.coverImg})`}} className="w-16 h-16 bg-cover group-hover:bg-gray-100 rounded-full"></div>
+        <span className="text-sm text-center font-bold mt-1">{data?.category.category?.name}</span>
+      </div>
       {!loading &&
         <div className="max-w-screen-2xl mx-auto mt-16 pb-20">
           <div className="justify-around max-w-4xl mx-auto">

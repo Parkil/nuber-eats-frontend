@@ -2,7 +2,14 @@ import React, {useState} from "react";
 import {RestaurantCategoryArea} from "../../components/restaurant/restaurant.category.area";
 import {RestaurantQueryList} from "../../components/restaurant/restaurant.query.list";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {useHistory} from "react-router-dom";
+
+ /*
+  //페이지를 이동하는 방식
+  history.push({
+    pathname: 'search',
+    search: `?term=${data.searchWord}` //search(url에 반영), state(url에 미반영) - 브라우저 refresh를 해도 유지됨
+  });
+*/
 
 export const Restaurants = () => {
   document.title = 'Home | Nuber';
@@ -13,21 +20,12 @@ export const Restaurants = () => {
     searchWord: string;
   }
 
-  const history = useHistory();
   const onSubmit: SubmitHandler<any> = (data) => {
-    /*
-    여기에서 바로 검색을 수행하는 방식
     if (data.searchWord && data.searchWord !== '') {
       setQueryStr(data.searchWord);
     } else {
       setQueryStr(undefined);
-    }*/
-    
-    //페이지를 이동하는 방식
-    history.push({
-      pathname: 'search',
-      search: `?term=${data.searchWord}` //search(url에 반영), state(url에 미반영) - 브라우저 refresh를 해도 유지됨
-    });
+    }
   }
 
   const {register, handleSubmit} = useForm<IForm>()

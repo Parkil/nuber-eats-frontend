@@ -24,7 +24,7 @@ export const Header:React.FC = () => {
       )}
       <header className="py-4">
         <div className="container px-5 xl:px-0 max-w-screen-2xl flex justify-between items-center">
-          <NuberLogo classStr="w-40"/>
+          <Link to="/"><NuberLogo classStr="w-40"/></Link>
           <span className="text-xs">
             <Link to="/edit-profile">
               <FontAwesomeIcon icon={faUser} className="text-xl"/>{data?.me.email}
