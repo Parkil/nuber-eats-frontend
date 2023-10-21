@@ -7,6 +7,7 @@ import {ConfirmEmail} from "../pages/user/confirm.email";
 import {EditProfile} from "../pages/user/edit.profile";
 import {Search} from "../pages/client/search";
 import {Category} from "../pages/client/category";
+import {Restaurant} from "../pages/client/restaurant";
 
 const ClientRoutes = [
   <Route key="main" path="/" exact>
@@ -23,7 +24,10 @@ const ClientRoutes = [
   </Route>,
   <Route key="category" path="/category/:slug">
     <Category/>
-  </Route>
+  </Route>,
+  <Route key="restaurant" path="/restaurant/:id">
+    <Restaurant/>
+  </Route>,
 ]
 
 export const LoggedInRouter = () => {
