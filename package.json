@@ -27,9 +27,10 @@
     "tailwind:build": "tailwind build -i src/styles/tailwind.css -o ./src/styles/style.css",
     "start": "graphql-codegen && npm run tailwind:build & react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
     "eject": "react-scripts eject",
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen",
+    "test:cov": "npm test -- --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": [
@@ -58,5 +59,12 @@
     "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "./src/components/**/*.tsx",
+      "./src/pages/**/*.tsx",
+      "./src/routers/**/*.tsx"
+    ]
   }
 }
