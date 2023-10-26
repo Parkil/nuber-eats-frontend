@@ -8,7 +8,7 @@ import {MeQuery, MeQueryVariables} from "../__graphql_type/type";
   caching 된 결과를 client.writeFragment 를 이용하여 변경을 하게 되면 현재 관련된 query 가 자동으로 다시 호출
   이 되는듯 함
  */
-const ME_QUERY = gql`
+export const ME_QUERY = gql`
   query me {
     me {
       id
