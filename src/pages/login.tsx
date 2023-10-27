@@ -64,7 +64,9 @@ export const Login = () => {
     onError
   });
 
-  const {register, handleSubmit, formState: {errors, isValid}} = useForm<IForm>();
+  const {register, handleSubmit, formState: {errors, isValid}} = useForm<IForm>({
+    mode: "onChange",
+  });
   const onSubmit: SubmitHandler<any> = async (data) => {
     if (!loading) {
       const {email, password} = data;
