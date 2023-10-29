@@ -12,7 +12,7 @@ import {NuberLogo} from "../components/nuber.logo";
 /*
   mutation loginMutation($email:String!, $password:String!) -> FrontEnd 에서만 필요한 부분
  */
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   mutation execLogin($loginInput: LoginInput!) {
     login(input: $loginInput){
       ok
