@@ -9,7 +9,7 @@ import {ExecCreateAccountMutation, ExecCreateAccountMutationVariables, UserRole}
 import {EMAIL_REGEX} from "../constant/constant";
 import {NuberLogo} from "../components/nuber.logo";
 
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
   mutation execCreateAccount($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput){
       ok
@@ -49,7 +49,10 @@ export const CreateAccount = () => {
     onError
   });
 
-  const {register, handleSubmit, formState: {errors, isValid}} = useForm<IForm>();
+  const {register, handleSubmit, formState: {errors, isValid}} = useForm<IForm>({
+    mode: "onChange",
+  });
+
   const onSubmit: SubmitHandler<any> = async (data) => {
     if (!loading) {
       const {email, password, role} = data;
