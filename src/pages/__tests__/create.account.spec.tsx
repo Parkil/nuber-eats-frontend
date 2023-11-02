@@ -5,7 +5,6 @@ import {ApolloProvider} from "@apollo/client";
 import {render} from "../../test.utils";
 import {screen} from "@testing-library/react";
 import {UserRole} from "../../__graphql_type/type";
-import {LOGIN_MUTATION} from "../login";
 
 
 const setUp = () => {
@@ -16,11 +15,32 @@ const setUp = () => {
   return client;
 }
 
+const mockPush = jest.fn()
+
+// mocking 하고자 하는 module 에서 일부 function 만 mocking 하는 경우
+jest.mock('react-router-dom', () => {
+  const realModule = jest.requireActual('react-router-dom')
+  return {
+    ...realModule,
+    useHistory: () => {
+      return {
+        push: mockPush
+      }
+    }
+  }
+})
+
 describe('<CreateAccount/>', () => {
+
   let mockClient: MockApolloClient
 
   beforeEach(() => {
     mockClient = setUp()
+    window.alert = jest.fn()
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
   })
 
   it('renders ok', () => {
@@ -75,8 +95,11 @@ describe('<CreateAccount/>', () => {
     const button = screen.getByRole('button');
     await userEvent.click(button)
 
+    expect(window.alert).toHaveBeenCalledWith('Account Created! Log in now!')
+    expect(mockPush).toHaveBeenCalledWith('/')
     expect(result).toHaveBeenCalledTimes(1)
     expect(result).toHaveBeenCalledWith({createAccountInput:formData})
+
   })
 
   it("submits form and apollo error", async () => {
