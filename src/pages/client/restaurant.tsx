@@ -8,28 +8,26 @@ interface IRestaurantParams {
   id: string;
 }
 
-export const Restaurant = () =>  {
-  const params = useParams<IRestaurantParams>();
-
-  // todo 숫자형 문자열이 들어오지 않을 경우 방어로직 삽입
-
-  const FIND_RESTAURANT_QUERY = gql`
-     query findRestaurant($restaurantInput: RestaurantInput!) {
-      findRestaurant(input: $restaurantInput) {
-        ok
-        error
-        restaurant {
-          ...RestaurantParts
-        }
-      }
+export const FIND_RESTAURANT_QUERY = gql`
+ query findRestaurant($restaurantInput: RestaurantInput!) {
+  findRestaurant(input: $restaurantInput) {
+    ok
+    error
+    restaurant {
+      ...RestaurantParts
     }
-    ${RESTAURANT_FRAGMENT}
-  `;
+  }
+}
+${RESTAURANT_FRAGMENT}
+`;
+
+export const Restaurant = () =>  {
+  const {id} = useParams<IRestaurantParams>()
 
   const {data, loading} = useQuery<FindRestaurantQuery, FindRestaurantQueryVariables>(FIND_RESTAURANT_QUERY, {
     variables: {
       restaurantInput: {
-        restaurantId: +params.id
+        restaurantId: +id
       }
     }
   })

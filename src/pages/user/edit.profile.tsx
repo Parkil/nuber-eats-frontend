@@ -12,7 +12,7 @@ interface IForm {
   password?: string;
 }
 
-const EDIT_PROFILE_MUTATION = gql`
+export const EDIT_PROFILE_MUTATION = gql`
   mutation execEditProfile($editProfileInput: EditProfileInput!) {
     editProfile(input: $editProfileInput) {
       ok
@@ -24,7 +24,7 @@ const EDIT_PROFILE_MUTATION = gql`
 export const EditProfile = () => {
   document.title = 'Edit Profile | Nuber';
 
-  const {data: userData, refetch} = useMe(); // refetch (graphql 을 다시 불러온다)
+  const {data: userData} = useMe(); // refetch (graphql 을 다시 불러온다)
   const {register, handleSubmit, formState: {errors, isValid}, getValues} = useForm<IForm>({
     defaultValues: {email: userData?.me.email}
   });

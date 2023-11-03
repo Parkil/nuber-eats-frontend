@@ -5,7 +5,7 @@ import {useMe} from "../../hooks/use.me";
 import {getCode} from "../../util/get.param";
 import {HistoryReplace} from "../../components/history.replace";
 
-const VERIFY_EMAIL_MUTATION = gql`
+export const VERIFY_EMAIL_MUTATION = gql`
   mutation execVerifyEmail($verifyEmailInput: VerifyEmailInput!) {
     verifyEmail(input: $verifyEmailInput){
       ok
@@ -67,7 +67,7 @@ export const ConfirmEmail = () => {
           code: getCode()
         }
       }
-    }).then();
+    }).then()
   }
 
   return (

@@ -5,7 +5,6 @@ import {render} from "../../test.utils";
 import {screen, waitFor} from "@testing-library/react";
 import {CATEGORY_RESTAURANT_QUERY, RestaurantCategoryList} from "../restaurant/restaurant.category.list";
 import userEvent from "@testing-library/user-event";
-import {RestaurantQueryList} from "../restaurant/restaurant.query.list";
 
 const resultValue = {
   data: {

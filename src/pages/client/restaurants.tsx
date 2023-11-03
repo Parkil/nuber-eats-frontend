@@ -3,14 +3,6 @@ import {RestaurantCategoryArea} from "../../components/restaurant/restaurant.cat
 import {RestaurantQueryList} from "../../components/restaurant/restaurant.query.list";
 import {SubmitHandler, useForm} from "react-hook-form";
 
- /*
-  //페이지를 이동하는 방식
-  history.push({
-    pathname: 'search',
-    search: `?term=${data.searchWord}` //search(url에 반영), state(url에 미반영) - 브라우저 refresh를 해도 유지됨
-  });
-*/
-
 export const Restaurants = () => {
   document.title = 'Home | Nuber';
 

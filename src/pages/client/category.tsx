@@ -14,8 +14,6 @@ export const Category = () =>  {
   const params = useParams<ICategoryParams>(); // path-variable 을 가져올때 사용
 
   return (
-    <>
-      <RestaurantCategoryList slug={params.slug}/>
-    </>
+    <RestaurantCategoryList slug={params.slug}/>
   );
 }
