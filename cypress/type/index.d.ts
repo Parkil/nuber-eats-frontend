@@ -9,6 +9,8 @@ declare namespace Cypress {
   interface Chainable<Subject = any> {
     assertLoggedIn(): Chainable<any>
     assertLoggedOut(): Chainable<any>
+    assertTitle(title: string): Chainable<any>
     execLogin(email: string, password: string): Chainable<any>
+    execLoginAndAssertLogin(email: string, password: string): Chainable<any>
   }
 }

@@ -33,7 +33,7 @@ describe('CreateAccount', () => {
       // 특정 operation 에서만 response 를 조작하도록 설정
       if (operationName && operationName === 'execCreateAccount') {
         req.reply((res) => {
-          res.send({"data": {"createAccount": { "ok": true, "error": null, "__typename": "CreateAccountOutput"}}})
+          res.send({fixture: 'auth/create.account.json'})
         })
       }
     })

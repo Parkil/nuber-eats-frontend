@@ -57,3 +57,13 @@ Cypress.Commands.add('execLogin', (email: string, password: string) => {
   cy.findByRole('button').should('not.have.class', 'pointer-event-none')
   cy.findByRole('button').click()
 })
+
+Cypress.Commands.add('assertTitle', (title: string) => {
+  cy.title().should('eq', title)
+})
+
+Cypress.Commands.add('execLoginAndAssertLogin', (email: string, password: string) => {
+  cy.execLogin(email, password)
+  cy.assertLoggedIn()
+})
+
