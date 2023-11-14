@@ -1,8 +1,9 @@
-import React, {useState} from "react"
-import {gql, useQuery} from "@apollo/client";
+import React, {useEffect} from "react"
+import {gql, useApolloClient, useQuery} from "@apollo/client";
 import {RESTAURANT_FRAGMENT} from "../../constant/fragments";
 import {MyRestaurantsPageQuery, MyRestaurantsPageQueryVariables} from "../../__graphql_type/type";
 import {Link} from "react-router-dom";
+import {RestaurantElement} from "../../components/restaurant/restaurant.element";
 
 export const MY_RESTAURANTS_QUERY = gql`
   query myRestaurantsPage($restaurantsInput: SearchRestaurantsInput!) {
@@ -22,25 +23,34 @@ export const MY_RESTAURANTS_QUERY = gql`
 export const MyRestaurants = () => {
   document.title = 'My Restaurants | Nuber';
 
-  const [query, setQuery] = useState('222')
-  const [pageNum, setPageNum] = useState(1)
-
   const {data, loading} = useQuery<MyRestaurantsPageQuery, MyRestaurantsPageQueryVariables>(MY_RESTAURANTS_QUERY, {
     variables: {
       restaurantsInput: {
-        page: pageNum,
-        query: query,
+        page: 1,
+        query: '',
       }
     },
   })
 
-  console.log(data, loading)
+  const client = useApolloClient()
+  
+  useEffect(() => {
+    const queryResult = client.readQuery({query: MY_RESTAURANTS_QUERY})
+    console.log(queryResult)
+    client.writeQuery({
+      query:MY_RESTAURANTS_QUERY,
+      data: {
+        ...queryResult,
+        restaurants:[], //임시
+      }
+    })
+  },[])
 
   return (
     <div>
       <div className="max-w-screen-2xl mx-auto mt-32">
         <h2 className="text-4xl font-medium mb-10">My Restaurants</h2>
-        {data?.findRestaurantsByOwner.ok && data.findRestaurantsByOwner.searchResult.length === 0 && (
+        {!loading && data?.findRestaurantsByOwner.ok && data.findRestaurantsByOwner.searchResult.length === 0 && (
           <>
             <h4 className="text-xl mb-5">You have no restaurants.</h4>
             <Link
@@ -51,6 +61,12 @@ export const MyRestaurants = () => {
             </Link>
           </>
         )}
+        {!loading && data?.findRestaurantsByOwner.searchResult.length !== 0 && (<>
+          {data?.findRestaurantsByOwner.searchResult?.map(restaurant =>
+            <RestaurantElement key={restaurant.id} coverImg={restaurant.coverImg} name={restaurant.name}
+                               categoryName={restaurant.category.name} id={restaurant.id}/>)
+          }
+        </>)}
       </div>
     </div>
   )

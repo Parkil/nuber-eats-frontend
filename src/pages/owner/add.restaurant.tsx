@@ -1,16 +1,17 @@
-import React, {useState} from "react"
+import React from "react"
 import {ApolloError, gql, useMutation} from "@apollo/client";
 import {ExecCreateRestaurantMutation, ExecCreateRestaurantMutationVariables} from "../../__graphql_type/type";
-import {Form, SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {Button} from "../../components/button";
-import {data} from "autoprefixer";
 import {FormError} from "../../components/form.error";
+import {MY_RESTAURANTS_QUERY} from "./my.restaurants";
 
 export const CREATE_RESTAURANT_MUTATION = gql`
   mutation execCreateRestaurant($createRestaurantsInput: CreateRestaurantsInput!) {
     createRestaurant(input: $createRestaurantsInput){
       ok
       error
+      restaurantId
     }
   }
 `
@@ -26,10 +27,10 @@ export const AddRestaurant = () => {
   document.title = 'Add Restaurants | Nuber'
 
   const onCompleted = (data: ExecCreateRestaurantMutation) => {
-    const {createRestaurant: {ok}} = data
+    const {createRestaurant: {ok, restaurantId}} = data
 
     if (ok) {
-      console.log('성공')
+      console.log('성공 : ', restaurantId)
     }
   }
 
@@ -39,7 +40,8 @@ export const AddRestaurant = () => {
 
   const [execCreateRestaurant, {data, loading}] = useMutation<ExecCreateRestaurantMutation, ExecCreateRestaurantMutationVariables>(CREATE_RESTAURANT_MUTATION, {
     onCompleted,
-    onError
+    onError,
+    refetchQueries: [{query : MY_RESTAURANTS_QUERY}], //mutation 이 종료되면 자동으로 실행되는 query 를 지정
   });
 
   const {register, handleSubmit, formState: {errors, isValid}} = useForm<IFormProps>({
