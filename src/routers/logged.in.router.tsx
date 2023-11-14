@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Switch} from "react-router-dom";
 import {Restaurants} from "../pages/client/restaurants";
 import {Header} from "../components/header";
 import {useMe} from "../hooks/use.me";
@@ -8,26 +8,49 @@ import {EditProfile} from "../pages/user/edit.profile";
 import {Search} from "../pages/client/search";
 import {Category} from "../pages/client/category";
 import {Restaurant} from "../pages/client/restaurant";
+import {SetRoute} from "../components/set.route";
+import {MyRestaurants} from "../pages/owner/my.restaurants";
+import {AddRestaurant} from "../pages/owner/add.restaurant";
 
-const ClientRoutes = [
-  <Route key="main" path="/" exact>
-    <Restaurants/>
-  </Route>,
-  <Route key="confirm" path="/confirm" exact>
-    <ConfirmEmail/>
-  </Route>,
-  <Route key="editProfile" path="/edit-profile" exact>
-    <EditProfile/>
-  </Route>,
-  <Route key="search" path="/search" exact>
-    <Search/>
-  </Route>,
-  <Route key="category" path="/category/:slug">
-    <Category/>
-  </Route>,
-  <Route key="restaurant" path="/restaurant/:id">
-    <Restaurant/>
-  </Route>,
+const clientRoutes = [
+  {
+    path: '/',
+    component: <Restaurants/>
+  },
+  {
+    path: '/search',
+    component: <Search/>
+  },
+  {
+    path: '/category/:slug',
+    component: <Category/>
+  },
+  {
+    path: '/restaurant/:id',
+    component: <Restaurant/>
+  },
+]
+
+const commonRoutes = [
+  {
+    path: '/confirm',
+    component: <ConfirmEmail/>
+  },
+  {
+    path: '/edit-profile',
+    component: <EditProfile/>
+  },
+]
+
+const restaurantRoutes = [
+  {
+    path: '/add-restaurant',
+    component: <AddRestaurant/>
+  },
+  {
+    path: '/',
+    component: <MyRestaurants/>
+  },
 ]
 
 export const LoggedInRouter = () => {
@@ -46,7 +69,9 @@ export const LoggedInRouter = () => {
     <Router>
       <Header/>
       <Switch>
-        {data.me.role === 'Client' && ClientRoutes}
+        {data.me.role === 'Client' && <SetRoute routeInfo={clientRoutes}/>}
+        {data.me.role === 'Owner' && <SetRoute routeInfo={restaurantRoutes}/>}
+        <SetRoute routeInfo={commonRoutes}/>
         <Redirect to="/" />
       </Switch>
     </Router>

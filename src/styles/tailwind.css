@@ -13,3 +13,7 @@
 .form {
   @apply grid gap-3 mt-5 w-full mb-5
 }
+
+.link {
+  @apply text-lime-600 hover:underline
+}
