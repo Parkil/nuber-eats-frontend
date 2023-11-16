@@ -29,6 +29,7 @@
   "scripts": {
     "tailwind:build": "tailwind build -i src/styles/tailwind.css -o ./src/styles/style.css",
     "start": "graphql-codegen && npm run tailwind:build & react-scripts start",
+    "start:prod": "graphql-codegen && npm run tailwind:build & react-scripts build & serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test --verbose",
     "eject": "react-scripts eject",

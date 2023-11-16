@@ -1,5 +1,5 @@
-import React, {useEffect} from "react"
-import {gql, useApolloClient, useQuery} from "@apollo/client";
+import React from "react"
+import {gql, useQuery} from "@apollo/client";
 import {RESTAURANT_FRAGMENT} from "../../constant/fragments";
 import {MyRestaurantsPageQuery, MyRestaurantsPageQueryVariables} from "../../__graphql_type/type";
 import {Link} from "react-router-dom";
@@ -32,24 +32,15 @@ export const MyRestaurants = () => {
     },
   })
 
-  const client = useApolloClient()
-  
-  useEffect(() => {
-    const queryResult = client.readQuery({query: MY_RESTAURANTS_QUERY})
-    console.log(queryResult)
-    client.writeQuery({
-      query:MY_RESTAURANTS_QUERY,
-      data: {
-        ...queryResult,
-        restaurants:[], //임시
-      }
-    })
-  },[])
-
   return (
     <div>
       <div className="max-w-screen-2xl mx-auto mt-32">
-        <h2 className="text-4xl font-medium mb-10">My Restaurants</h2>
+        <h2 className="text-4xl font-medium mb-10">My Restaurants<Link
+              className="link"
+              to="/add-restaurant"
+            >
+              Create one &rarr;
+            </Link></h2>
         {!loading && data?.findRestaurantsByOwner.ok && data.findRestaurantsByOwner.searchResult.length === 0 && (
           <>
             <h4 className="text-xl mb-5">You have no restaurants.</h4>
