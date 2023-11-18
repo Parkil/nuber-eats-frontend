@@ -7,7 +7,8 @@ import {Link} from "react-router-dom";
 import {ExecLoginMutation, ExecLoginMutationVariables} from "../__graphql_type/type";
 import {EMAIL_REGEX, LOCAL_STORAGE_TOKEN} from "../constant/constant";
 import {isLoggedInVar, tokenVar} from "../apollo";
-import {NuberLogo} from "../components/nuber.logo";
+import {FormWrapper} from "../components/form/form.wrapper";
+import {FormTitleAndLogo} from "../components/form/form.title.and.logo";
 
 /*
   mutation loginMutation($email:String!, $password:String!) -> FrontEnd 에서만 필요한 부분
@@ -81,31 +82,28 @@ export const Login = () => {
   }
 
   return (
-    <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
-      <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-        <NuberLogo/>
-        <h4 className="w-full font-medium text-left text-3xl mb-10">Welcome Back</h4>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3 mt-5 w-full mb-5">
-          <input {...register("email", {required: 'Email is required', pattern: EMAIL_REGEX})} type='email' placeholder="Email"
-                 className="input mb-3"/>
-          {errors.email?.message && <FormError errorMsg={errors.email.message}/>}
-          {errors.email?.type === "pattern" &&
-            <FormError errorMsg={"Please enter a valid email"}/>}
+    <FormWrapper>
+      <FormTitleAndLogo title={'Welcome Back'}/>
+      <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <input {...register("email", {required: 'Email is required', pattern: EMAIL_REGEX})} type='email' placeholder="Email"
+               className="input"/>
+        {errors.email?.message && <FormError errorMsg={errors.email.message}/>}
+        {errors.email?.type === "pattern" &&
+          <FormError errorMsg={"Please enter a valid email"}/>}
 
-          <input {...register("password", {required: 'Password is required', minLength: 4})} type='password'
-                 placeholder="Password"
-                 className="input"/>
-          {errors.password?.message && <FormError errorMsg={errors.password.message}/>}
-          {errors.password?.type === "minLength" &&
-            <FormError errorMsg={"password must be more than large 4 character"}/>}
+        <input {...register("password", {required: 'Password is required', minLength: 4})} type='password'
+               placeholder="Password"
+               className="input mb-3"/>
+        {errors.password?.message && <FormError errorMsg={errors.password.message}/>}
+        {errors.password?.type === "minLength" &&
+          <FormError errorMsg={"password must be more than large 4 character"}/>}
 
-          <Button canClick={isValid} loading={loading} actionText={'Login'}/>
-          {data?.login.error && <FormError errorMsg={data.login.error}/>}
-        </form>
-        <div>
-          New to Nuber? <Link to='/create-account' className="text-lime-600 hover:underline">Create an Account</Link>
-        </div>
+        <Button canClick={isValid} loading={loading} actionText={'Login'}/>
+        {data?.login.error && <FormError errorMsg={data.login.error}/>}
+      </form>
+      <div>
+        New to Nuber? <Link to='/create-account' className="text-lime-600 hover:underline">Create an Account</Link>
       </div>
-    </div>
+    </FormWrapper>
   );
 };

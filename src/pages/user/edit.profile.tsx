@@ -6,6 +6,8 @@ import {ApolloError, gql, useApolloClient, useMutation} from "@apollo/client";
 import {ExecEditProfileMutation, ExecEditProfileMutationVariables} from "../../__graphql_type/type";
 import {EMAIL_REGEX} from "../../constant/constant";
 import {FormError} from "../../components/form.error";
+import {FormWrapper} from "../../components/form/form.wrapper";
+import {FormTitle} from "../../components/form/form.title";
 
 interface IForm {
   email?: string;
@@ -83,9 +85,9 @@ export const EditProfile = () => {
 
   // container presenter pattern - react 의 디자인 패턴인거 같은데 조사 필요
   return (
-    <div className="mt-52 flex flex-col justify-center items-center">
-      <h4 className="text-lg mb-2 font-medium">Edit Profile</h4>
-      <form onSubmit={handleSubmit(onSubmit)} className="form max-w-screen-sm">
+    <FormWrapper>
+      <FormTitle title={'Edit Profile'}/>
+      <form onSubmit={handleSubmit(onSubmit)} className="form">
         <input {...register("email", {required: 'Email is required', pattern: EMAIL_REGEX})} type="email"
                placeholder="Email" className="input"/>
         {errors.email?.message && <FormError errorMsg={errors.email.message}/>}
@@ -97,6 +99,6 @@ export const EditProfile = () => {
         <Button canClick={isValid} loading={loading} actionText={'Save Profile'}/>
         {data?.editProfile.error && <FormError errorMsg={data.editProfile.error}/>}
       </form>
-    </div>
+    </FormWrapper>
   );
 }

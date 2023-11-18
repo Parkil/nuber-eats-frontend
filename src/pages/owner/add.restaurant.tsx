@@ -7,6 +7,8 @@ import {FormError} from "../../components/form.error";
 import {MY_RESTAURANTS_QUERY} from "./my.restaurants";
 import {getSingleObject} from "../../util/graphql.restaurant";
 import {useHistory} from "react-router-dom";
+import {FormWrapper} from "../../components/form/form.wrapper";
+import {FormTitle} from "../../components/form/form.title";
 
 export const CREATE_RESTAURANT_MUTATION = gql`
   mutation execCreateRestaurant($createRestaurantsInput: CreateRestaurantsInput!) {
@@ -151,29 +153,27 @@ export const AddRestaurant = () => {
   }
 
   return (
-    <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
-      <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-        <h1>Add Restaurants</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
-          <input {...register("address", {required: 'Address is required'})} placeholder="address"
-                 className="input mb-3" type="text"/>
+    <FormWrapper>
+      <FormTitle title={'Add Restaurant'}/>
+      <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <input {...register("address", {required: 'Address is required'})} placeholder="address"
+               className="input mb-3" type="text"/>
 
-          <input {...register("categoryName", {required: 'categoryName is required'})}
-                 placeholder="categoryName"
-                 className="input mb-3" type="text"/>
+        <input {...register("categoryName", {required: 'categoryName is required'})}
+               placeholder="categoryName"
+               className="input mb-3" type="text"/>
 
-          <input {...register("name", {required: 'name is required'})}
-                 placeholder="name"
-                 className="input" type="text"/>
-          <div>
-            <input {...register("file", {required: 'image file is required'})}
-                 placeholder="Image File"
-                 className="input mb-3" type="file" accept="image/*"/>
-          </div>
-          <Button canClick={isValid} loading={loading} actionText={'Create Restaurant'}/>
-          {data?.createRestaurant.error && <FormError errorMsg={data.createRestaurant.error}/>}
-        </form>
-      </div>
-    </div>
+        <input {...register("name", {required: 'name is required'})}
+               placeholder="name"
+               className="input" type="text"/>
+        <div>
+          <input {...register("file", {required: 'image file is required'})}
+               placeholder="Image File"
+               className="input mb-3" type="file" accept="image/*"/>
+        </div>
+        <Button canClick={isValid} loading={loading} actionText={'Create Restaurant'}/>
+        {data?.createRestaurant.error && <FormError errorMsg={data.createRestaurant.error}/>}
+      </form>
+    </FormWrapper>
   )
 }
