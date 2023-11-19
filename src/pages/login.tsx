@@ -1,5 +1,5 @@
 import React from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useForm, UseFormReturn} from "react-hook-form";
 import {FormError} from "../components/form.error";
 import {ApolloError, gql, useMutation} from "@apollo/client";
 import {Button} from "../components/button";
@@ -9,6 +9,7 @@ import {EMAIL_REGEX, LOCAL_STORAGE_TOKEN} from "../constant/constant";
 import {isLoggedInVar, tokenVar} from "../apollo";
 import {FormWrapper} from "../components/form/form.wrapper";
 import {FormTitleAndLogo} from "../components/form/form.title.and.logo";
+import {FormInput} from "../components/form/form.input";
 
 /*
   mutation loginMutation($email:String!, $password:String!) -> FrontEnd 에서만 필요한 부분
@@ -47,7 +48,7 @@ export const Login = () => {
   document.title = 'Login | Nuber';
 
   const onCompleted = (data: ExecLoginMutation) => {
-    const {login: { ok, token}} = data;
+    const {login: {ok, token}} = data;
 
     if (ok && token) {
       localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
@@ -65,9 +66,12 @@ export const Login = () => {
     onError
   });
 
-  const {register, handleSubmit, formState: {errors, isValid}} = useForm<IForm>({
+  const useFormReturn: UseFormReturn<IForm> = useForm<IForm>({
     mode: "onChange",
   });
+
+  const {handleSubmit, formState: {isValid}} = useFormReturn
+
   const onSubmit: SubmitHandler<any> = async (data) => {
     if (!loading) {
       const {email, password} = data;
@@ -85,18 +89,11 @@ export const Login = () => {
     <FormWrapper>
       <FormTitleAndLogo title={'Welcome Back'}/>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <input {...register("email", {required: 'Email is required', pattern: EMAIL_REGEX})} type='email' placeholder="Email"
-               className="input"/>
-        {errors.email?.message && <FormError errorMsg={errors.email.message}/>}
-        {errors.email?.type === "pattern" &&
-          <FormError errorMsg={"Please enter a valid email"}/>}
-
-        <input {...register("password", {required: 'Password is required', minLength: 4})} type='password'
-               placeholder="Password"
-               className="input mb-3"/>
-        {errors.password?.message && <FormError errorMsg={errors.password.message}/>}
-        {errors.password?.type === "minLength" &&
-          <FormError errorMsg={"password must be more than large 4 character"}/>}
+        <FormInput name='email' type='email' placeHolder='Email'
+                   validateOption={{required: true, pattern: EMAIL_REGEX}}
+                   reactHookFormObj={useFormReturn}/>
+        <FormInput name='password' type='password' placeHolder='Password'
+                   validateOption={{required: true, minLength: 4}} reactHookFormObj={useFormReturn}/>
 
         <Button canClick={isValid} loading={loading} actionText={'Login'}/>
         {data?.login.error && <FormError errorMsg={data.login.error}/>}
