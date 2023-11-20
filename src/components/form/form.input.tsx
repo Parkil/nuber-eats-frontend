@@ -20,6 +20,7 @@ export const FormInput: React.FC<IFormInputProps> = ({name, type, placeHolder, v
       {errors[name]?.type === 'required' && <FormError errorMsg={`${name} is required`}/>}
       {errors[name]?.type === 'pattern' && <FormError errorMsg={`${name} is invalid ${type}`}/>}
       {errors[name]?.type === 'minLength' && <FormError errorMsg={`${name} is must be more than large ${validateOption.minLength} character`}/>}
+      {errors[name]?.type === 'min' && <FormError errorMsg={`${name} is must be more than ${validateOption.min}`}/>}
     </>
   );
 }

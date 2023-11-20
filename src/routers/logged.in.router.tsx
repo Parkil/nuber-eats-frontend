@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Restaurants} from "../pages/client/restaurants";
 import {Header} from "../components/header";
 import {useMe} from "../hooks/use.me";
@@ -12,7 +12,7 @@ import {SetRoute} from "../components/set.route";
 import {MyRestaurants} from "../pages/owner/my.restaurants";
 import {AddRestaurant} from "../pages/owner/add.restaurant";
 import {MyRestaurant} from "../pages/owner/my.restaurant";
-import {AddDish} from "../pages/owner/add-dish";
+import {AddDish} from "../pages/owner/add.dish";
 import {NotFound} from "../pages/404";
 
 const clientRoutes = [
