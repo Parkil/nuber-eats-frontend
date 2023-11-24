@@ -68,7 +68,7 @@ export const MyRestaurant = () => {
           <div className="mt-10">
             {data?.ownerRestaurant.restaurant?.menu.length === 0 ?
               <h4 className="text-xl mb-5">Please a Update Dish</h4> :
-              <div className="grid md:grid-cols-3 gap-x-5 gap-y-10">
+              <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
                 {data?.ownerRestaurant.restaurant?.menu.map((dish) =>
                   <Dish key={dish.name} description={dish.description} name={dish.name} price={dish.price}/>)}
               </div>
