@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import {gql, useMutation, useQuery} from "@apollo/client";
 import {DISH_FRAGMENT, RESTAURANT_FRAGMENT} from "../../constant/fragments";
 import {
@@ -38,6 +38,7 @@ const CREATE_ORDER_MUTATION = gql`
     createOrder(input: $createOrderInput){
       ok
       error
+      orderId
     }
   }
 `
@@ -53,9 +54,13 @@ export const Restaurant = () => {
     }
   })
 
+  const history = useHistory()
   const onCompleted = (data: ExecCreateOrderMutation) => {
-    const {createOrder: {ok}} = data;
-    console.log(ok)
+    const {createOrder: {ok, orderId}} = data;
+    if (ok) {
+      alert("order created")
+      history.push(`/orders/${orderId}`)
+    }
   }
 
   const [execCreateOrder] = useMutation<ExecCreateOrderMutation, ExecCreateOrderMutationVariables>(CREATE_ORDER_MUTATION, {
@@ -133,6 +138,32 @@ export const Restaurant = () => {
     }
   }
 
+  const triggerCancelOrder = () => {
+    setOrderStarted(false)
+    setOrderDishes([])
+  }
+
+  const triggerConfirmOrder = () => {
+    // todo 선택한 dish 값을 옆에 띄우기
+    if (orderDishes.length === 0) {
+      alert("Can't place empty order")
+      return
+    }
+
+    const ok = window.confirm('You are about place on order')
+    if (ok) {
+      console.log('create order mutation')
+      execCreateOrder({
+        variables :{
+          createOrderInput: {
+            restaurantId: +id,
+            items: orderDishes
+          }
+        }
+      }).then()
+    }
+  }
+
   console.log(orderDishes)
 
   return (
@@ -149,24 +180,42 @@ export const Restaurant = () => {
             </div>
           </div>
 
-          <div className={'container flex flex-col items-end mt-20 pb-30'}>
-            <button onClick={triggerStartOrder} className={'btn bg-lime-500 hover:bg-lime-700 px-10 py-5'}>
-              {orderStarted ? 'Ordering' : 'Start Order'}
-            </button>
+          <div className={'container pb-32 flex flex-col items-end mt-20'}>
+            {!orderStarted &&
+              <button onClick={triggerStartOrder} className={'btn px-10 bg-lime-600'}>
+                Start Order
+              </button>
+            }
+
+            {orderStarted &&
+              <div className={`flex items-center`}>
+                <button onClick={triggerConfirmOrder} className={'btn px-10 mr-3 bg-lime-600'}>
+                  Confirm Order
+                </button>
+                <button onClick={triggerCancelOrder} className={'btn px-10 bg-black hover:bg-black'}>
+                  Cancel Order
+                </button>
+              </div>
+            }
             <div className={'w-full grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10'}>
               {data?.findRestaurant.restaurant?.menu.map((dish) =>
                 <Dish isSelected={isSelected(dish.id)} id={dish.id} isOrderStarted={orderStarted} key={dish.name}
                       description={dish.description} name={dish.name}
                       price={dish.price} addItemToOrder={addItemToOrder}
                       removeFromOrder={removeFromOrder}>
-                  <div>
-                    <h5 className={'my-3 font-bold'}>Dish Options : </h5>
-                    {dish.options?.map(option => <DishOptionElement key={option.name} dishId={dish.id} option={option}
+
+                  {dish.options?.length !== 0 && (
+                    <div>
+                      <h5 className="mt-8 mb-3 font-medium">Dish Options:</h5>
+                      <div className="grid gap-2  justify-start">
+                        {dish.options?.map(option => <DishOptionElement key={option.name} dishId={dish.id} option={option}
                                                                     onOptionClick={onOptionClick}
                                                                     isSelected={isSelected(dish.id)}
                                                                     isOptionSelected={isOptionSelected(dish.id, option.name)}/>)
-                    }
-                  </div>
+                      }
+                      </div>
+                    </div>
+                  )}
                 </Dish>)}
             </div>
           </div>

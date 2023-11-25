@@ -20,9 +20,9 @@ export const DishOptionElement: React.FC<IDishOptionProps> = ({
   return (
     <span onClick={() => onOptionClick(dishId, option.name)}
           onKeyUp={() => onOptionClick(dishId, option.name)} key={option.name}
-          className={`flex items-center ${isSelected && 'cursor-pointer'} ${isOptionSelected && 'border-2 border-gray-900'}`}>
-      <h6 className={'mr-2'}>{option.name}</h6>
-      <h6 className={'text-sm opacity-75'}>(${option.extra})</h6>
+          className={`border px-2 py-1 ${isSelected ? "border-gray-800" : "hover:border-gray-800"}`}>
+      <span  className={'mr-2'}>{option.name}</span>
+      <span  className={'text-sm opacity-75'}>(${option.extra})</span>
     </span>
   )
 }
