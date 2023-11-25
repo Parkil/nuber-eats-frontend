@@ -5,7 +5,6 @@ import {Header} from "../components/header";
 import {useMe} from "../hooks/use.me";
 import {ConfirmEmail} from "../pages/user/confirm.email";
 import {EditProfile} from "../pages/user/edit.profile";
-import {Search} from "../pages/client/search";
 import {Category} from "../pages/client/category";
 import {Restaurant} from "../pages/client/restaurant";
 import {SetRoute} from "../components/set.route";
@@ -21,12 +20,8 @@ const clientRoutes = [
     component: <Restaurants/>
   },
   {
-    path: '/search',
-    component: <Search/>
-  },
-  {
     path: '/category/:slug',
-    component: <Category/>
+    component: <Restaurants/>
   },
   {
     path: '/restaurant/:id',

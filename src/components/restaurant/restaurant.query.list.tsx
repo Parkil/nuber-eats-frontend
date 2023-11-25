@@ -6,16 +6,18 @@ import {Pagination} from "./pagination";
 interface IRestaurantListProps {
   isSkip: boolean;
   query?: string;
+  slug?: string;
 }
 
 
-export const RestaurantQueryList: React.FC<IRestaurantListProps> = ({isSkip, query}) => {
+export const RestaurantQueryList: React.FC<IRestaurantListProps> = ({isSkip, query, slug}) => {
+
   const [pageNum, setPageNum] = useState(1);
 
   const {
     data,
     loading
-  } = useRestaurants(isSkip, pageNum, query);
+  } = useRestaurants(isSkip, pageNum, query, slug);
 
   const onNextPageClick = () => {
     setPageNum((current) => current + 1);
