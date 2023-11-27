@@ -3,8 +3,9 @@ import {render} from "../../test.utils";
 import {createMockClient, MockApolloClient} from "mock-apollo-client";
 import {ApolloProvider} from "@apollo/client";
 import userEvent from "@testing-library/user-event";
-import {EDIT_PROFILE_MUTATION, EditProfile} from "../user/edit.profile";
+import {EditProfile} from "../user/edit.profile";
 import {screen, waitFor} from "@testing-library/react";
+import {EDIT_PROFILE_MUTATION} from "../../hooks/use.edit.profile";
 
 
 const setUp = () => {
