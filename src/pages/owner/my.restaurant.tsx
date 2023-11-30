@@ -1,8 +1,13 @@
-import React from "react";
-import {Link, useParams} from "react-router-dom";
-import {gql, useQuery} from "@apollo/client";
-import {DISH_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT} from "../../constant/fragments";
-import {OwnerRestaurantQuery, OwnerRestaurantQueryVariables} from "../../__graphql_type/type";
+import React, {useEffect} from "react";
+import {Link, useHistory, useParams} from "react-router-dom";
+import {gql, useQuery, useSubscription} from "@apollo/client";
+import {DISH_FRAGMENT, FULL_ORDER_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT} from "../../constant/fragments";
+import {
+  OwnerRestaurantQuery,
+  OwnerRestaurantQueryVariables,
+  PendingOrdersSubscription,
+  PendingOrdersSubscriptionVariables
+} from "../../__graphql_type/type";
 import {Dish} from "../../components/dish/dish";
 import {
   VictoryAxis,
@@ -39,6 +44,15 @@ export const OWNER_RESTAURANT_QUERY = gql`
   ${ORDER_FRAGMENT}
 `;
 
+const PENDING_ORDERS_SUBSCRIPTION = gql`
+  subscription pendingOrders{
+    pendingOrders {
+      ...FullOrderParts
+    }
+  }
+  ${FULL_ORDER_FRAGMENT}
+`
+
 export const MyRestaurant = () => {
   const {id} = useParams<IRestaurantParams>()
 
@@ -49,6 +63,16 @@ export const MyRestaurant = () => {
       }
     }
   })
+
+  const {data: pendingOrder} = useSubscription<PendingOrdersSubscription, PendingOrdersSubscriptionVariables>(PENDING_ORDERS_SUBSCRIPTION)
+
+  // useEffect 외부에서 history.push 를 할 경우 rendering 관련 오류가 발생할 소지가 있기 때문에 useEffect 내부에서 수행
+  const history = useHistory()
+  useEffect(() =>  {
+    if (pendingOrder?.pendingOrders.id) {
+      history.push(`/order/${pendingOrder?.pendingOrders.id}`)
+    }
+  }, [pendingOrder, history])
 
   return (
     <>

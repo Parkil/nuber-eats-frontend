@@ -99,7 +99,7 @@ export const Order = () => {
               {data?.viewOrder.orderInfo?.status === OrderStatus.Pending && (
                 <button
                   onClick={() => onButtonClick(OrderStatus.Cooking)}
-                  className="btn"
+                  className={`bg-lime-500 hover:bg-lime-700 btn`}
                 >
                   Accept Order
                 </button>
@@ -107,7 +107,7 @@ export const Order = () => {
               {data?.viewOrder.orderInfo?.status === OrderStatus.Cooking && (
                 <button
                   onClick={() => onButtonClick(OrderStatus.Cooked)}
-                  className="btn"
+                  className={`bg-lime-500 hover:bg-lime-700 btn`}
                 >
                   Order Cooked
                 </button>
@@ -125,7 +125,7 @@ export const Order = () => {
               {data?.viewOrder.orderInfo?.status === OrderStatus.Cooked && (
                 <button
                   onClick={() => onButtonClick(OrderStatus.PickedUp)}
-                  className="btn"
+                  className={`bg-lime-500 hover:bg-lime-700 btn`}
                 >
                   Picked Up
                 </button>
@@ -133,7 +133,7 @@ export const Order = () => {
               {data?.viewOrder.orderInfo?.status === OrderStatus.PickedUp && (
                 <button
                   onClick={() => onButtonClick(OrderStatus.Delivered)}
-                  className="btn"
+                  className={`bg-lime-500 hover:bg-lime-700 btn`}
                 >
                   Order Delivered
                 </button>
