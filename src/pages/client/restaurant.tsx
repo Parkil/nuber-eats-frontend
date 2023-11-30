@@ -63,7 +63,7 @@ export const Restaurant = () => {
     }
   }
 
-  const [execCreateOrder] = useMutation<ExecCreateOrderMutation, ExecCreateOrderMutationVariables>(CREATE_ORDER_MUTATION, {
+  const [execCreateOrder, {loading: placingOrder}] = useMutation<ExecCreateOrderMutation, ExecCreateOrderMutationVariables>(CREATE_ORDER_MUTATION, {
     onCompleted,
   });
 
@@ -144,6 +144,10 @@ export const Restaurant = () => {
   }
 
   const triggerConfirmOrder = () => {
+    if (placingOrder) {
+      return
+    }
+
     // todo 선택한 dish 값을 옆에 띄우기
     if (orderDishes.length === 0) {
       alert("Can't place empty order")
