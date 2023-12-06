@@ -59,7 +59,7 @@ export const Restaurant = () => {
     const {createOrder: {ok, orderId}} = data;
     if (ok) {
       alert("order created")
-      history.push(`/orders/${orderId}`)
+      history.push(`/order/${orderId}`)
     }
   }
 
@@ -214,7 +214,7 @@ export const Restaurant = () => {
                       <div className="grid gap-2  justify-start">
                         {dish.options?.map(option => <DishOptionElement key={option.name} dishId={dish.id} option={option}
                                                                     onOptionClick={onOptionClick}
-                                                                    isSelected={isSelected(dish.id)}
+                                                                    isSelected={isSelected(dish.id)} //todo option selected 로 수정 필요
                                                                     isOptionSelected={isOptionSelected(dish.id, option.name)}/>)
                       }
                       </div>

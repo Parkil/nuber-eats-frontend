@@ -1,10 +1,11 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {useViewOrder} from "../hooks/use.view.order";
-import {OrderStatus, OrderUpdatesSubscription, UserRole} from "../__graphql_type/type";
+import {ExecEditOrderMutation, OrderStatus, OrderUpdatesSubscription, UserRole} from "../__graphql_type/type";
 import {useMe} from "../hooks/use.me";
 import {gql} from "@apollo/client";
 import {FULL_ORDER_FRAGMENT} from "../constant/fragments";
+import {useEditOrder} from "../hooks/use.edit.order";
 
 interface IOrderParam {
   orderId: string;
@@ -57,8 +58,22 @@ export const Order = () => {
     })
   }
 
-  function onButtonClick(Cooking: OrderStatus) {
+  const onCompleted = (data: ExecEditOrderMutation) => {
+    const {editOrder: {ok}} = data;
+    console.log(ok)
+  }
 
+  const [execEditOrder] = useEditOrder(onCompleted)
+
+  const onButtonClick = async (status: OrderStatus) => {
+    await execEditOrder({
+      variables: {
+        editOrderInput: {
+          id: +orderId,
+          status
+        }
+      }
+    })
   }
 
   return (

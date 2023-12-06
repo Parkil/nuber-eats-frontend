@@ -13,6 +13,8 @@ import {MyRestaurant} from "../pages/owner/my.restaurant";
 import {AddDish} from "../pages/owner/add.dish";
 import {NotFound} from "../pages/404";
 import {Order} from "../pages/order";
+import {Dashboard} from "../pages/driver/dashboard";
+import {UserRole} from "../__graphql_type/type";
 
 const clientRoutes = [
   {
@@ -44,7 +46,7 @@ const commonRoutes = [
   },
 ]
 
-const restaurantRoutes = [
+const ownerRoutes = [
   {
     path: '/',
     component: <MyRestaurants/>
@@ -60,6 +62,13 @@ const restaurantRoutes = [
   {
     path: '/restaurant/:id/add-dish',
     component: <AddDish/>
+  },
+]
+
+const deliveryRoutes = [
+  {
+    path: '/',
+    component: <Dashboard/>
   },
 ]
 
@@ -79,8 +88,9 @@ export const LoggedInRouter = () => {
     <Router>
       <Header/>
       <Switch>
-        {data.me.role === 'Owner' && <SetRoute routeInfo={[...restaurantRoutes, ...commonRoutes]}/>}
-        {data.me.role === 'Client' && <SetRoute routeInfo={[...clientRoutes, ...commonRoutes]}/>}
+        {data.me.role === UserRole.Owner && <SetRoute routeInfo={[...ownerRoutes, ...commonRoutes]}/>}
+        {data.me.role === UserRole.Client && <SetRoute routeInfo={[...clientRoutes, ...commonRoutes]}/>}
+        {data.me.role === UserRole.Delivery && <SetRoute routeInfo={[...deliveryRoutes, ...commonRoutes]}/>}
         <Route>
           <NotFound/>
         </Route>
